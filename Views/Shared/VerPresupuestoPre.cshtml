@@ -1,0 +1,42 @@
+@model presupuestos.Presupuestos
+
+@{
+    ViewData["Title"] = "Detalle del Presupuesto";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <tr>
+        <th>Nombre Destinatario</th>
+        <td>@Model.NombreDestinatario</td>
+    </tr>
+    <tr>
+        <th>Fecha de Creación</th>
+        <td>@Model.FechaCreacion?.ToString("dd/MM/yyyy")</td>
+    </tr>
+</table>
+
+<h3>Detalles de los Productos</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var detalle in Model.Detalle)
+        {
+            <tr>
+                <td>@detalle.Producto.Descripcion</td>
+                <td>@detalle.Cantidad</td>
+                <td>@detalle.Producto.Precio.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("AgregarProductoPre", "Presupuestos", new { id = Model.IdPresupuesto })" class="btn btn-primary">Agregar Producto</a>
+<a href="@Url.Action("ListarPre", "Presupuestos")" class="btn btn-secondary">Volver al Listado</a>

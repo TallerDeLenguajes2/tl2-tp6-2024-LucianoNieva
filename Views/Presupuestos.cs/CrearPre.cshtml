@@ -1,0 +1,23 @@
+@model presupuestos.Presupuestos
+
+@{
+    ViewData["Title"] = "Crear Presupuesto";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="CrearPre" method="post">
+    <div class="form-group">
+        <label for="NombreDestinatario">Nombre Destinatario</label>
+        <input type="text" class="form-control" id="NombreDestinatario" name="NombreDestinatario" value="@Model.NombreDestinatario" required />
+    </div>
+
+    <div class="form-group">
+        <label for="FechaCreacion">Fecha de Creación</label>
+        <input type="date" class="form-control" id="FechaCreacion" name="FechaCreacion" value="@Model.FechaCreacion?.ToString("yyyy-MM-dd")" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear Presupuesto</button>
+</form>
+
+<a href="@Url.Action("ListarPre", "Presupuestos")" class="btn btn-secondary">Volver al Listado</a>

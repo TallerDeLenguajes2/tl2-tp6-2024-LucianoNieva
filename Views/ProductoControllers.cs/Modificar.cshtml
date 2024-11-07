@@ -1,0 +1,17 @@
+@model producto.Producto
+
+<h2>Modificar Producto</h2>
+
+<form method="post" action="@Url.Action("Modificar", "ProductoControllers", new { id = Model.IdProducto })">
+    <div class="form-group">
+        <label for="Descripcion">Descripción</label>
+        <input type="text" class="form-control" id="Descripcion" name="Descripcion" value="@Model.Descripcion" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Precio">Precio</label>
+        <input type="number" class="form-control" id="Precio" name="Precio" value="@Model.Precio" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Modificar Producto</button>
+</form>

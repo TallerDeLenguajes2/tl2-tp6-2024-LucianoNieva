@@ -1,0 +1,10 @@
+@model producto.Producto
+
+<h2>Eliminar Producto</h2>
+
+<p>¿Está seguro de que desea eliminar el producto <strong>@Model.Descripcion</strong>?</p>
+
+<form method="post" action="@Url.Action("Eliminar", "ProductoControllers", new { id = Model.IdProducto })">
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a href="@Url.Action("Listar", "ProductoControllers")" class="btn btn-secondary">Cancelar</a>
+</form>

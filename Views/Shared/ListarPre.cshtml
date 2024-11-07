@@ -1,0 +1,33 @@
+@model IEnumerable<presupuestos.Presupuestos>
+
+@{
+    ViewData["Title"] = "Listado de Presupuestos";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre del Destinatario</th>
+            <th>Fecha de Creación</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var presupuesto in Model)
+        {
+            <tr>
+                <td>@presupuesto.NombreDestinatario</td>
+                <td>@presupuesto.FechaCreacion?.ToString("dd/MM/yyyy") ?? "Fecha no disponible"</td>
+                <td>
+                    <a href="@Url.Action("VerPresupuestoPre", "Presupuestos", new { id = presupuesto.IdPresupuesto })" class="btn btn-info">Ver</a>
+                    <a href="@Url.Action("ModificarPre", "Presupuestos", new { id = presupuesto.IdPresupuesto })" class="btn btn-warning">Modificar</a>
+                    <a href="@Url.Action("EliminarPre", "Presupuestos", new { id = presupuesto.IdPresupuesto })" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("CrearPre", "Presupuestos")" class="btn btn-primary">Crear Nuevo Presupuesto</a>
