@@ -1,19 +1,20 @@
 using System;
 using presupuestosDetalles;
+using clientes;
 namespace presupuestos
 {
     public class Presupuestos
     {
 
         private int idPresupuesto;
-        private string nombreDestinatario;
+        private Clientes cliente;
         private List<PresupuestosDetalles> detalle;
         private DateTime? fechaCreacion;
 
         public int IdPresupuesto { get => idPresupuesto; set => idPresupuesto = value; }
-        public string NombreDestinatario { get => nombreDestinatario; set => nombreDestinatario = value; }
         public List<PresupuestosDetalles> Detalle { get => detalle; set => detalle = value; }
         public DateTime? FechaCreacion { get => fechaCreacion; set => fechaCreacion = value; }
+        public Clientes Cliente { get => cliente; set => cliente = value; }
 
         public double MontoPresupuesto()
         {
