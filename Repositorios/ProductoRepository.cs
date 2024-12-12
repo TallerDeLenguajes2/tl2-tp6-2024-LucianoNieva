@@ -26,14 +26,15 @@ namespace repoProduct
 
         public void ModificarProducto(int id, Producto prod)
         {
+            var query = "UPDATE Productos SET Descripcion = @Descripcion, Precio = @Precio WHERE idProducto = @Id";
+
             using (SqliteConnection connection = new SqliteConnection(cadenaConexion))
             {
-                var query = "UPDATE Productos SET Descripcion = @Descripcion, Precio = @Precio WHERE idProducto = @Id";
                 connection.Open();
                 var command = new SqliteCommand(query, connection);
                 command.Parameters.Add(new SqliteParameter("@Descripcion", prod.Descripcion));
                 command.Parameters.Add(new SqliteParameter("@Precio", prod.Precio));
-                command.Parameters.Add(new SqliteParameter("@Id", prod.IdProducto));
+                command.Parameters.Add(new SqliteParameter("@Id", id));
                 command.ExecuteNonQuery();
                 connection.Close();
             }

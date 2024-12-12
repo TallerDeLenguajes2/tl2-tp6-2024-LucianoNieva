@@ -1,4 +1,4 @@
-@model IEnumerable<presupuestos.Presupuestos>
+@model List<presupuestos.Presupuestos>
 
 @{
     ViewData["Title"] = "Listado de Presupuestos";
@@ -19,7 +19,7 @@
         {
             <tr>
                 <td>@presupuesto.NombreDestinatario</td>
-                <td>@presupuesto.FechaCreacion?.ToString("dd/MM/yyyy") ?? "Fecha no disponible"</td>
+                <td>@presupuesto.FechaCreacion</td>
 
                 <td>
                     <a href="@Url.Action("VerPresupuestoPre", "Presupuestos", new { id = presupuesto.IdPresupuesto })" class="btn btn-info">Ver</a>

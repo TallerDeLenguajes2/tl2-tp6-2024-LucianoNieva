@@ -1,11 +1,8 @@
-using presupuestosRepository;
-using repoProduct;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<RepoProduct>();
-builder.Services.AddScoped<PresupuestosRepository>(); 
 
 var app = builder.Build();
 

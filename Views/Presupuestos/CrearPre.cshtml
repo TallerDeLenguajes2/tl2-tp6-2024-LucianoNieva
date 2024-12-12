@@ -1,0 +1,31 @@
+@model presupuestos.Presupuestos
+
+
+<h2>Crear Presupuesto</h2>
+
+<form asp-action="CrearPre" method="post">
+    <div class="form-group">
+        <label asp-for="NombreDestinatario"></label>
+        <input asp-for="NombreDestinatario" class="form-control" required />
+    </div>
+
+    <h4 class="mt-4">Detalles del Presupuesto</h4>
+    <div id="detalleContainer">
+        <div class="form-row mb-3">
+            <div class="col">
+                <label>Producto ID</label>
+                <input type="text" name="Detalle[0].Producto.IdProducto" class="form-control" placeholder="ID del Producto" required />
+            </div>
+            <div class="col">
+                <label>Cantidad</label>
+                <input type="number" name="Detalle[0].Cantidad" class="form-control" placeholder="Cantidad" required min="1" />
+            </div>
+        </div>
+        <!-- Se pueden agregar más productos dinámicamente si se desea -->
+    </div>
+
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Crear</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>

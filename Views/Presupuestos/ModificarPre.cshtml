@@ -16,10 +16,10 @@
 
     <div class="form-group">
         <label for="FechaCreacion">Fecha de Creación</label>
-        <input type="date" class="form-control" id="FechaCreacion" name="FechaCreacion" value="@Model.FechaCreacion?.ToString("yyyy-MM-dd")" required />
+        <input type="date" class="form-control" id="FechaCreacion" name="FechaCreacion" value="@Model.FechaCreacion" required />
     </div>
 
     <button type="submit" class="btn btn-primary">Modificar Presupuesto</button>
 </form>
 
-<a href="@Url.Action("ListarPre", "Presupuestos")" class="btn btn-secondary">Volver al Listado</a>
+<a href="@Url.Action("Index", "Presupuestos")" class="btn btn-secondary">Volver al Listado</a>

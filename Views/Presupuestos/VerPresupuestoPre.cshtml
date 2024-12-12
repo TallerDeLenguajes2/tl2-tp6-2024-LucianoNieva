@@ -13,7 +13,7 @@
     </tr>
     <tr>
         <th>Fecha de Creación</th>
-        <td>@Model.FechaCreacion?.ToString("dd/MM/yyyy")</td>
+        <td>@Model.FechaCreacion</td>
     </tr>
 </table>
 
@@ -39,4 +39,4 @@
 </table>
 
 <a href="@Url.Action("AgregarProductoPre", "Presupuestos", new { id = Model.IdPresupuesto })" class="btn btn-primary">Agregar Producto</a>
-<a href="@Url.Action("ListarPre", "Presupuestos")" class="btn btn-secondary">Volver al Listado</a>
+<a href="@Url.Action("Index", "Presupuestos")" class="btn btn-secondary">Volver al Listado</a>
