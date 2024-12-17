@@ -1,0 +1,218 @@
+@model ModificarPresupuestoViewModel
+
+<h2>Modificar Presupuesto</h2>
+<form asp-action="ModificarPresupuesto" method="post" class="container mt-4 p-4 border rounded bg-light">
+    <input type="hidden" asp-for="Presupuesto.IdPresupuesto" />
+    <input type="hidden" asp-for="Presupuesto.FechaCreacion" />
+    
+    <div class="form-group mb-3">
+        <label for="ClienteIdSeleccionado" class="form-label">Cliente:</label>
+        <select asp-for="ClienteIdSeleccionado" 
+                asp-items="@(new SelectList(Model.Clientes, "Id", "Nombre", Model.ClienteIdSeleccionado))" 
+                class="form-select">
+            <option value="">Seleccione un cliente</option>
+        </select>
+        <span asp-validation-for="ClienteIdSeleccionado" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Presupuesto.FechaCreacion">Fecha de Creación</label>
+        <input asp-for="Presupuesto.FechaCreacion" class="form-control" type="date" readonly />
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">Agregar Nuevo Producto</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <select id="nuevoProducto" class="form-select">
+                        <option value="">Seleccione un producto</option>
+                        @foreach (var producto in Model.Productos)
+                        {
+                            <option value="@producto.IdProducto" 
+                                    data-precio="@producto.Precio"
+                                    data-descripcion="@producto.Descripcion">
+                                @producto.Descripcion - $@producto.Precio
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="number" id="nuevaCantidad" class="form-control" min="1" placeholder="Cantidad" />
+                </div>
+                <div class="col-md-2">
+                    <button type="button" id="btnAgregarProducto" class="btn btn-success w-100">
+                        <i class="bi bi-plus-circle"></i> Agregar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="mt-4 mb-3">Productos en el Presupuesto</h3>
+    <div id="detallesPresupuesto">
+        @for (int i = 0; i < Model.Presupuesto.Detalle.Count; i++)
+        {
+            <div class="product-card mb-3 p-3 border rounded position-relative">
+                <input type="hidden" asp-for="Presupuesto.Detalle[i].Producto.IdProducto" />
+                <input type="hidden" asp-for="Presupuesto.Detalle[i].Producto.Descripcion" />
+                <input type="hidden" asp-for="Presupuesto.Detalle[i].Producto.Precio" />
+                
+                <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2 btn-eliminar-producto">
+                    <i class="bi bi-trash"></i>
+                </button>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5 class="product-title">
+                            @Model.Presupuesto.Detalle[i].Producto.Descripcion
+                        </h5>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Presupuesto.Detalle[i].Cantidad">Cantidad</label>
+                            <input asp-for="Presupuesto.Detalle[i].Cantidad" 
+                                   class="form-control" 
+                                   type="number" 
+                                   min="1" 
+                                   required />
+                            <span asp-validation-for="Presupuesto.Detalle[i].Cantidad" class="text-danger"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Precio Unitario</label>
+                            <input value="$@Model.Presupuesto.Detalle[i].Producto.Precio" 
+                                   class="form-control" 
+                                   type="text" 
+                                   readonly />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <strong>Subtotal: </strong>
+                    <span class="subtotal">
+                        $@(Model.Presupuesto.Detalle[i].Cantidad * Model.Presupuesto.Detalle[i].Producto.Precio)
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>
+
+<!-- Agrego con ChatGpt estas animaciones-->
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Agregar nuevo producto
+            $('#btnAgregarProducto').click(function() {
+                const productoSelect = $('#nuevoProducto');
+                const cantidadInput = $('#nuevaCantidad');
+                
+                const productoId = productoSelect.val();
+                const cantidad = cantidadInput.val();
+                
+                if (!productoId || !cantidad || cantidad < 1) {
+                    alert('Por favor seleccione un producto y especifique una cantidad válida');
+                    return;
+                }
+
+                const option = productoSelect.find(':selected');
+                const descripcion = option.data('descripcion');
+                const precio = option.data('precio');
+                
+                const index = $('#detallesPresupuesto .product-card').length;
+                
+                const nuevoProductoHtml = `
+                    <div class="product-card mb-3 p-3 border rounded position-relative">
+                        <input type="hidden" name="Presupuesto.Detalle[${index}].Producto.IdProducto" value="${productoId}" />
+                        <input type="hidden" name="Presupuesto.Detalle[${index}].Producto.Descripcion" value="${descripcion}" />
+                        <input type="hidden" name="Presupuesto.Detalle[${index}].Producto.Precio" value="${precio}" />
+                        
+                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2 btn-eliminar-producto">
+                            <i class="bi bi-trash"></i>
+                        </button>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h5 class="product-title">${descripcion}</h5>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Cantidad</label>
+                                    <input name="Presupuesto.Detalle[${index}].Cantidad" 
+                                           class="form-control" 
+                                           type="number" 
+                                           min="1" 
+                                           value="${cantidad}"
+                                           required />
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Precio Unitario</label>
+                                    <input value="$${precio}" 
+                                           class="form-control" 
+                                           type="text" 
+                                           readonly />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-2">
+                            <strong>Subtotal: </strong>
+                            <span class="subtotal">$${precio * cantidad}</span>
+                        </div>
+                    </div>
+                `;
+                
+                $('#detallesPresupuesto').append(nuevoProductoHtml);
+                
+                // Limpiar selección
+                productoSelect.val('');
+                cantidadInput.val('');
+            });
+
+            // Eliminar producto
+            $(document).on('click', '.btn-eliminar-producto', function() {
+                if (confirm('¿Está seguro de que desea eliminar este producto?')) {
+                    $(this).closest('.product-card').remove();
+                    reindexarProductos();
+                }
+            });
+
+            // Función para reindexar los productos después de eliminar
+            function reindexarProductos() {
+                $('.product-card').each(function(index) {
+                    $(this).find('input[name*="Presupuesto.Detalle"]').each(function() {
+                        const currentName = $(this).attr('name');
+                        const newName = currentName.replace(/\[\d+\]/, `[${index}]`);
+                        $(this).attr('name', newName);
+                    });
+                });
+            }
+
+            // Actualizar subtotales cuando cambie la cantidad
+            $(document).on('change', 'input[name$="].Cantidad"]', function() {
+                const cantidad = $(this).val();
+                const precio = $(this).closest('.product-card')
+                    .find('input[name$="].Producto.Precio"]').val();
+                const subtotal = cantidad * precio;
+                $(this).closest('.product-card').find('.subtotal').text(`$${subtotal}`);
+            });
+        });
+    </script>
+}

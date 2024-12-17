@@ -1,0 +1,33 @@
+@model clientes.Clientes
+
+<h2>Eliminar Cliente</h2>
+
+<div class="alert alert-danger">
+    ¿Está seguro que desea eliminar el siguiente cliente?
+</div>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <td>@Model.ClienteId</td>
+    </tr>
+    <tr>
+        <th>Nombre</th>
+        <td>@Model.Nombre</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>@Model.Email</td>
+    </tr>
+     <tr>
+        <th>Telefono</th>
+        <td>@Model.Telefono</td>
+    </tr>
+</table>
+
+<form asp-controller="Clientes" asp-action="EliminarClienteConfirmado" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" value="@Model.ClienteId" />
+    <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

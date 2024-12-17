@@ -1,0 +1,34 @@
+@model List<clientes.Clientes>
+
+<h2>Listado de Clientes</h2>
+
+<a asp-controller="Clientes" asp-action="CrearCliente" class="btn btn-primary mb-3">Crear Nuevo Cliente</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cliente in Model)
+        {
+            <tr>
+                <td>@cliente.ClienteId</td>
+                <td>@cliente.Nombre</td>
+                <td>@cliente.Email</td>
+                <td>@cliente.Telefono</td>
+                <td>
+                    <a asp-asp-controller="Clientes" asp-action="ModificarCliente" method="get" asp-route-id="@cliente.ClienteId"
+                        class="btn btn-warning btn-sm">Modificar</a>
+                    <a asp-controller="Clientes" asp-action="EliminarCliente" method="get" asp-route-id="@cliente.ClienteId"
+                        class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
