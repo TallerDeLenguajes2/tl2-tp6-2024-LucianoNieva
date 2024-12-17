@@ -4,8 +4,6 @@ using producto;
 
 namespace repoProduct
 {
-
-
     public class RepoProduct
     {
         private string cadenaConexion = "Data Source=Tienda.db";
@@ -33,7 +31,7 @@ namespace repoProduct
                 var command = new SqliteCommand(query, connection);
                 command.Parameters.Add(new SqliteParameter("@Descripcion", prod.Descripcion));
                 command.Parameters.Add(new SqliteParameter("@Precio", prod.Precio));
-                command.Parameters.Add(new SqliteParameter("@Id", prod.IdProducto));
+                command.Parameters.Add(new SqliteParameter("@Id", id));
                 command.ExecuteNonQuery();
                 connection.Close();
             }

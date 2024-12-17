@@ -9,43 +9,41 @@ namespace presupuestos
         private int idPresupuesto;
         private Clientes cliente;
         private List<PresupuestosDetalles> detalle;
-        private DateTime? fechaCreacion;
+        private string fechaCreacion;
 
         public int IdPresupuesto { get => idPresupuesto; set => idPresupuesto = value; }
         public List<PresupuestosDetalles> Detalle { get => detalle; set => detalle = value; }
-        public DateTime? FechaCreacion { get => fechaCreacion; set => fechaCreacion = value; }
+        public string FechaCreacion { get => fechaCreacion; set => fechaCreacion = value; }
         public Clientes Cliente { get => cliente; set => cliente = value; }
+
+        public Presupuestos(){}
+        public Presupuestos(int id, Clientes clientes, string fechaCreacion)
+        {
+            this.idPresupuesto = id;
+            this.cliente = clientes;
+            this.fechaCreacion = fechaCreacion;
+            detalle = new List<PresupuestosDetalles>();
+        }
+
+        public Presupuestos(int v)
+        {
+            FechaCreacion = DateTime.Today.ToString("dd-MM-yyyy");
+            detalle = new List<PresupuestosDetalles>();
+        }
 
         public double MontoPresupuesto()
         {
-            int acumulador = 0;
-
-            foreach (var item in Detalle)
-            {
-                acumulador += item.Producto.Precio;
-            }
-            return acumulador;
+            int monto = detalle.Sum(d => d.Cantidad * d.Producto.Precio);
+            return monto;
         }
 
         public double MontoPresupuestoConIva()
         {
-            double acumulador = 0;
-
-            foreach (var item in Detalle)
-            {
-                acumulador += item.Producto.Precio;
-            }
-            return acumulador + (acumulador * 0.21);
+            return MontoPresupuesto() * 1.21;
         }
         public int CantidadProductos()
         {
-            int cantProductos = 0;
-
-            foreach (var item in detalle)
-            {
-                cantProductos++;
-            }
-            return cantProductos;
+            return detalle.Sum(d => d.Cantidad);
         }
     }
 }
