@@ -170,7 +170,7 @@ public class PresupuestosRepository
                 {
                     if (cont == 1)
                     {
-                        Clientes cliente = new Clientes(Convert.ToInt32(reader["idCliente"]), reader["Nombre"].ToString(), reader["Email"].ToString(), reader["Telefono"].ToString());
+                        Clientes cliente = new Clientes(Convert.ToInt32(reader["ClienteId"]), reader["Nombre"].ToString(), reader["Email"].ToString(), reader["Telefono"].ToString());
                         presupuesto = new Presupuestos(Convert.ToInt32(reader["idPresupuesto"]), cliente, reader["FechaCreacion"].ToString());
                     }
                     Producto producto = new Producto(Convert.ToInt32(reader["idProducto"]), reader["Producto"].ToString(), Convert.ToInt32(reader["Precio"]));

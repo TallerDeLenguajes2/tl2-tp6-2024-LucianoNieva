@@ -1,4 +1,4 @@
-@model ModificarPresupuestoViewModel
+@model modificarPresupuesto.ModificarPresupuesto
 
 <h2>Modificar Presupuesto</h2>
 <form asp-action="ModificarPresupuesto" method="post" class="container mt-4 p-4 border rounded bg-light">
@@ -19,6 +19,7 @@
         <label asp-for="Presupuesto.FechaCreacion">Fecha de Creación</label>
         <input asp-for="Presupuesto.FechaCreacion" class="form-control" type="date" readonly />
     </div>
+    using modificarPresupuesto;
 
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
