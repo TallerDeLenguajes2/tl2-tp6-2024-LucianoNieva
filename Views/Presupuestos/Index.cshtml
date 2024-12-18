@@ -3,7 +3,7 @@
 <div class="container mt-4">
     <h2 class="mb-4">Listado de Presupuestos</h2>
 
-    <a asp-controller="Presupuestos" asp-action="CrearPresupuesto" class="btn btn-primary mb-3">
+    <a asp-controller="Presupuestos" asp-action="CrearPre" class="btn btn-primary mb-3">
         <i class="fas fa-plus"></i> Crear Nuevo Presupuesto
     </a>
 
@@ -34,17 +34,17 @@
                             <td>@presupuesto.FechaCreacion.ToString()</td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <a asp-controller="Presupuestos" asp-action="ListarDetalles" 
+                                    <a asp-controller="Presupuestos" asp-action="VerPresupuestoPre" 
                                        asp-route-id="@presupuesto.IdPresupuesto"
                                        class="btn btn-info btn-sm">
                                         <i class="fas fa-info-circle"></i> Detalles
                                     </a>
-                                    <a asp-controller="Presupuestos" asp-action="ModificarPresupuesto" 
+                                    <a asp-controller="Presupuestos" asp-action="ModificarPre" 
                                        asp-route-id="@presupuesto.IdPresupuesto"
                                        class="btn btn-warning btn-sm ms-1">
                                         <i class="fas fa-edit"></i> Modificar
                                     </a>
-                                    <a asp-controller="Presupuestos" asp-action="EliminarPresupuesto" 
+                                    <a asp-controller="Presupuestos" asp-action="EliminarPre" 
                                        asp-route-id="@presupuesto.IdPresupuesto"
                                        class="btn btn-danger btn-sm ms-1">
                                         <i class="fas fa-trash"></i> Eliminar

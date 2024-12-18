@@ -10,7 +10,7 @@ namespace clientesRepository
 
         public void CrearCliente(Clientes clientes)
         {
-            string query = @"INSERT INTO Clintes (Nombre, Email, Telefono) VALUES (@nombre, @email, @telefono)";
+            string query = @"INSERT INTO Clientes (Nombre, Email, Telefono) VALUES (@nombre, @email, @telefono)";
 
             using (SqliteConnection connection = new SqliteConnection(cadenaConexion))
             {
@@ -80,7 +80,7 @@ namespace clientesRepository
         {
             Clientes cliente = null; //Uso el null para devolver en caso de no encontrar nada
 
-            string query = @"SELECT * FROM Clientes WHERE idCliente = @id ";
+            string query = @"SELECT * FROM Clientes WHERE ClienteId = @id ";
 
             using (SqliteConnection connection = new SqliteConnection(cadenaConexion))
             {
@@ -105,7 +105,7 @@ namespace clientesRepository
 
         public void EliminarCliente(int id)
         {
-            string query = @"DELETE FROM Clientes WHERE idCliente = @Id;";
+            string query = @"DELETE FROM Clientes WHERE ClienteId = @Id;";
 
             using (SqliteConnection connection = new SqliteConnection(cadenaConexion))
             {

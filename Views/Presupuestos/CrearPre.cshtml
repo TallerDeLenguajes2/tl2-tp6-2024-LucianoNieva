@@ -1,12 +1,12 @@
 @model PresupuestoViewModel
 
-<form asp-action="CrearPresupuesto" method="post" class="container mt-4 p-4 border rounded bg-light">
+<form asp-action="CrearPre" method="post" class="container mt-4 p-4 border rounded bg-light">
     @Html.AntiForgeryToken()
     <h2 class="text-center mb-4">Crear Presupuesto</h2>
 
     <div class="mb-3">
         <label for="ClienteIdSeleccionado" class="form-label">Seleccione Cliente:</label>
-        <select asp-for="ClienteIdSeleccionado" asp-items="@(new SelectList(Model.Clientes, "Id", "Nombre"))" class="form-select">
+        <select asp-for="ClienteIdSeleccionado" asp-items="@(new SelectList(Model.Clientes, "ClienteId", "Nombre"))" class="form-select">
             <option value="0">Seleccione un cliente</option>
         </select>
     </div>

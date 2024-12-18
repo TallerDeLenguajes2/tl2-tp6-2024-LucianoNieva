@@ -142,7 +142,7 @@ public class PresupuestosRepository
             C.ClienteId,
             C.Nombre,
             C.Email,
-            C.Telefono
+            C.Telefono,
             PR.idProducto,
             PR.Descripcion AS Producto,
             PR.Precio,
@@ -150,7 +150,7 @@ public class PresupuestosRepository
         FROM 
             Presupuestos P
         JOIN
-            Clientes C USING(ClienteId)
+            Clientes C ON P.ClienteId = C.ClienteId
         JOIN 
             PresupuestosDetalle PD ON P.idPresupuesto = PD.idPresupuesto
         JOIN 

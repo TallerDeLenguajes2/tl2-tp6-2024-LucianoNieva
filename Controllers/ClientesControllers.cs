@@ -5,12 +5,12 @@ using clientesRepository;
 using clientes;
 namespace tl2_tp6_2024_LucianoNieva.Controllers;
 
-public class ClientesControllers : Controller
+public class ClientesController : Controller
 {
-    private readonly ILogger<ClientesControllers> _logger;
+    private readonly ILogger<ClientesController> _logger;
     private readonly ClientesRepository _ClientesRepository;
 
-    public ClientesControllers(ILogger<ClientesControllers> logger)
+    public ClientesController(ILogger<ClientesController> logger)
     {
         _logger = logger;
         _ClientesRepository = new ClientesRepository();
